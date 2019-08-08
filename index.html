@@ -11,12 +11,29 @@
     />
     <title>Visit Your National Parks | Park Locator</title>
   </head>
-  <body>
+    <div class="container">
+        <header>
+            <h1>Visit your National Parks today!</h1>
+        </header>
+        <form id="js-form">
+            <fieldset>
+                <legend>National Parks Finder</legend>
+                <label for="input-area" class="input-label">Find a National Park. Enter the state you would like to search:</label>
+                <input type="text" class="input-area" name="input-area">
+                <input type="number" name="max-results" id="js-max-results" value="10">
+                <input type="button" value="">
+            </fieldset>
+        </form>
+        <section class="results-section">
+            
+        </section>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.4.1.js"
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"
     ></script>
+    <script src="config.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
