@@ -1,0 +1,1 @@
+This was completed as an assignment in the Thinkful Full Stack Flex program in the Asynchronous Web Apps module. The purpose of the app is to use the National Parks API to search and display parks for users in their area.
