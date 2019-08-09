@@ -60,9 +60,9 @@ legend {
   margin-top: 15px;
 }
 
-.input-field {
+.select-state {
   width: 100%;
-  height: 40px;
+  height: 50px;
   border: 2px solid grey;
   margin-top: 10px;
   background: rgb(209, 242, 253);
@@ -76,7 +76,7 @@ legend {
 
 #js-max-results {
   width: 100%;
-  height: 40px;
+  height: 50px;
   margin-top: 10px;
   border: 2px solid grey;
   background: rgba(209, 242, 253);

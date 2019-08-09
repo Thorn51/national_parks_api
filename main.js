@@ -4,26 +4,46 @@
 // User Enters state to search for park
 // User submits entry
 function submitQuery() {
-  let $query = $(".input-field").val();
-  let $resultsNumber = $("#js-max-results").val;
   $(".submit-button").on("click", function(event) {
     event.preventDefault();
-    fetchData($query, $resultsNumber);
+    let $stateCode = $(".select-state")
+      .val()
+      .toLowerCase();
+    let $resultsNumber = $("#js-max-results").val();
+    fetchData($stateCode, $resultsNumber);
   });
 }
 
 // Format query
-function createQueryEndpoint(params) {}
+function createQueryEndpoint(params) {
+  const queryString = Object.keys(params).map(
+    key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+  );
+  return queryString.join("&");
+}
 
 //Fetch data from NPS API
-function fetchData(query, maxResults = 10) {
+function fetchData(stateCode, resultsNumber) {
   const params = {
-    API_KEY: npsKey.my_key,
-    q: query,
-    limit: maxResults
+    api_key: npsKey.my_key,
+    stateCode: stateCode,
+    limit: resultsNumber
   };
 
-  const npsBaseUrl = "https://developer.nps.gov/api/v1";
+  const npsBaseUrl = "https://developer.nps.gov/api/v1/";
+  const npsDataTarget = "parks?";
+  const endPoint = createQueryEndpoint(params);
+  const fetchUrl = npsBaseUrl + npsDataTarget + endPoint;
+  console.log(fetchUrl);
+
+  fetch(fetchUrl)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(parksJson) {
+      console.log(parksJson);
+      console.log(parksJson.data[0].description);
+    });
 }
 
 // Display results to DOM
