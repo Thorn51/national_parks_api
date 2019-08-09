@@ -4,11 +4,16 @@
 // User Enters state to search for park
 // User submits entry
 function submitQuery() {
-    $query = 
+  let $query = $(".input-field").val();
+  let $resultsNumber = $("#js-max-results").val;
+  $(".submit-button").on("click", function(event) {
+    event.preventDefault();
+    fetchData($query, $resultsNumber);
+  });
 }
 
 // Format query
-function createQueryEndpoint() {}
+function createQueryEndpoint(params) {}
 
 //Fetch data from NPS API
 function fetchData(query, maxResults = 10) {
