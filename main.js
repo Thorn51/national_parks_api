@@ -6,11 +6,9 @@
 function submitQuery() {
   $(".submit-button").on("click", function(event) {
     event.preventDefault();
-    let $stateCode = $(".select-state")
-      .val()
-      .toLowerCase();
-    let $resultsNumber = $("#js-max-results").val();
-    fetchData($stateCode, $resultsNumber);
+    let $stateSearch = $(".select-state").val();
+    let $resultsNumber = $("#js-max-results").val() || 10;
+    fetchData($stateSearch, $resultsNumber);
   });
 }
 
@@ -57,15 +55,23 @@ function displayResults(parksJson) {
       `<div class="park-details">
         <div class="park-image">
           <title class="image-title">${parkDetails[i].images[0].title}</title>
-          <img src="${parkDetails[i].images[0].url}" alt="${parkDetails[i].images.altText}"/>
+          <img src="${parkDetails[i].images[0].url}" alt="${
+        parkDetails[i].images.altText
+      }"/>
         </div>
         <div class="park-description">
-          <h2 class="park-full-name">${parkDetails[i].fullName}</h2>
+          <h2 class="park-full-name">${parkDetails[i].fullName} - (${
+        parkDetails[i].states
+      })</h2>
           <p class="description">${parkDetails[i].description}</p>
-          <a href="${parkDetails[i].url}" class="more-info-link">More Information</a>
+          <a href="${
+            parkDetails[i].url
+          }" class="more-info-link">More Information</a>
           <h2 class="directions">Directions</h2>
           <p class="directions-info">${parkDetails[i].directionsInfo}</p>
-          <a href="${parkDetails[i].directionsUrl}" class="directions-url">Directions</a>
+          <a href="${
+            parkDetails[i].directionsUrl
+          }" class="directions-url">Directions</a>
         </div>
       </div>`
     );
