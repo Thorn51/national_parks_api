@@ -7,7 +7,7 @@ function submitQuery() {
   $(".submit-button").on("click", function(event) {
     event.preventDefault();
     let $stateSearch = $(".select-state").val();
-    let $resultsNumber = $("#js-max-results").val() || 10;
+    let $resultsNumber = $("#js-max-results").val();
     fetchData($stateSearch, $resultsNumber);
   });
 }
@@ -37,16 +37,25 @@ function fetchData(stateCode, resultsNumber) {
 
   fetch(fetchUrl)
     .then(function(response) {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
       return response.json();
     })
     .then(function(parksJson) {
       console.log(parksJson);
       displayResults(parksJson);
+    })
+    .catch(err => {
+      $(".error-message").text(
+        `Well this is awkward, something has gone wrong: ${err.message}`
+      );
     });
 }
 
 // Display results to DOM
 function displayResults(parksJson) {
+  $(".results-section").removeAttr("hidden");
   $(".results-section").empty();
   let parkDetails = parksJson.data;
   console.log(parkDetails);
