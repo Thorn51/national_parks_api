@@ -33,7 +33,8 @@ function fetchData(stateCode, resultsNumber) {
   const npsBaseUrl = "https://developer.nps.gov/api/v1/";
   const npsDataTarget = "parks?";
   const endPoint = createQueryEndpoint(params);
-  const fetchUrl = npsBaseUrl + npsDataTarget + endPoint;
+  const dataFields = "&fields=images,addresses,fullname";
+  const fetchUrl = npsBaseUrl + npsDataTarget + endPoint + dataFields;
   console.log(fetchUrl);
 
   fetch(fetchUrl)
@@ -42,12 +43,34 @@ function fetchData(stateCode, resultsNumber) {
     })
     .then(function(parksJson) {
       console.log(parksJson);
-      console.log(parksJson.data[0].description);
+      displayResults(parksJson);
     });
 }
 
 // Display results to DOM
-function displayResults() {}
+function displayResults(parksJson) {
+  $(".results-section").empty();
+  let parkDetails = parksJson.data;
+  console.log(parkDetails);
+  for (let i = 0; i < parkDetails.length; i++) {
+    $(".results-section").append(
+      `<div class="park-details">
+        <div class="park-image">
+          <title class="image-title">${parkDetails[i].images[0].title}</title>
+          <img src="${parkDetails[i].images[0].url}" alt="${parkDetails[i].images.altText}"/>
+        </div>
+        <div class="park-description">
+          <h2 class="park-full-name">${parkDetails[i].fullName}</h2>
+          <p class="description">${parkDetails[i].description}</p>
+          <a href="${parkDetails[i].url}" class="more-info-link">More Information</a>
+          <h2 class="directions">Directions</h2>
+          <p class="directions-info">${parkDetails[i].directionsInfo}</p>
+          <a href="${parkDetails[i].directionsUrl}" class="directions-url">Directions</a>
+        </div>
+      </div>`
+    );
+  }
+}
 
 // Document ready
 $(document).ready(function() {
